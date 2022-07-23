@@ -4,9 +4,9 @@ from channelsapp.models import Channel
 
 
 class Member(AbstractUser, PermissionsMixin):
-    email = models.EmailField(_('email address'), unique=True, max_length=255)
-    first_name = models.CharField(_("first name"), max_length=150)
-    last_name = models.CharField(_("last name"), max_length=150)
+    email = models.EmailField(('email address'), unique=True, max_length=255)
+    first_name = models.CharField(("first name"), max_length=150)
+    last_name = models.CharField(("last name"), max_length=150)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, null=True)
     is_mod = models.BooleanField(default=False)
 
