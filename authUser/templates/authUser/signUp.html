@@ -1,0 +1,9 @@
+{% extends 'rallyapp/base.html' %}
+<form method='POST'>
+    {% csrf_token %}
+    {% for f in form %}
+        {{ f  }}
+    {% endfor %}
+</form>
+{% load static %}
+

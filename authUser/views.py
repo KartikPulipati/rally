@@ -1,10 +1,21 @@
 import random
 import string
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from authUser.models import Member
+from authUser.forms import signUpForm
 from django.contrib.auth import authenticate, login, logout
-from .forms import SignupForm, RaterForm, RaterLoginForm
-from django.core.mail import EmailMessage
-from rally import settings
 from django.contrib.auth.decorators import login_required
-from django.template.loader import render_to_string
+
+
+def signUp(request):
+    form = signUpForm()
+
+    if request.method == 'POST':
+        form = signUpForm(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            form.username = form.email
+            form.save()
+            return redirect('home')
+    return render(request, "authUser/signUp.html", {'form': form})
+

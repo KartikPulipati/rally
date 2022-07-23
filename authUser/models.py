@@ -2,11 +2,12 @@ from django.contrib.auth.models import User, AbstractUser, PermissionsMixin
 from django.db import models
 from channelsapp.models import Channel
 
+
 class Member(AbstractUser, PermissionsMixin):
     username = models.EmailField(unique=True, null=True)
-    email = models.EmailField(('email address'), unique=True, max_length=255)
-    first_name = models.CharField(("first name"), max_length=150)
-    last_name = models.CharField(("last name"), max_length=150)
+    email = models.EmailField('email address', unique=True, max_length=255)
+    first_name = models.CharField("first name", max_length=150)
+    last_name = models.CharField("last name", max_length=150)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, null=True)
     is_mod = models.BooleanField(default=False)
 
