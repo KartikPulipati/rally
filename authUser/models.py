@@ -12,7 +12,7 @@ class Member(AbstractUser, PermissionsMixin):
 
     USERNAME_FIELD = "email"
 
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
         return self.first_name + " " + self.last_name
