@@ -7,12 +7,6 @@ import requests
 from .models import Channel, Poll, Choice, UserVote
 from django.conf import settings
 
-def get_geolocation_for_ip(ip):
-    url = f"http://api.ipstack.com/98.207.57.21?access_key={settings.IP_API_KEY}"
-    response = requests.get(url)
-    response.raise_for_status()
-    return response.json()
-
 class ChannelView(View, LoginRequiredMixin):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
@@ -21,19 +15,8 @@ class ChannelView(View, LoginRequiredMixin):
         ip = get_client_ip(request)
         geo_info = get_geolocation_for_ip(ip)
 
-        try:
-            channel = Channel.objects.get(location=geo_info["zip"])
-        except:
-            channel = Channel(name="dummy", location=geo_info["zip"])
-            channel.save()
-            channel.name = f"Channel #{channel.pk}"
-            channel.save()
-        request.user.channel = channel
-        request.user.save()
-        if channel.member_set.count() < 3:
-            request.user.is_mod = True
-        request.user.save()
-
+        channel = request.user.channel
+        channel = request.user.channel
         messages = channel.message_set.all()
         show_poll_pks = [int(i) for i in request.user.uservote_set.all().values_list('poll', flat=True)]
         return render(request, "channelsapp/channels.html", {"room_name": room_name, "messages": messages, "polls": channel.poll_set.all(),

@@ -3,13 +3,12 @@
 
 {% block title %} Login {% endblock %}
 
-    {% block content %}
-	<head>
-		<title>SignUp and Login</title>
-		<link rel="stylesheet" type="text/css" href="{%  static 'authUser/css/style.css' %}">
+   {% block css %}
+       <link rel="stylesheet" type="text/css" href="{%  static 'authUser/css/style.css' %}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	</head>
+   {% endblock %}
 
+ {% block content %}
         <form method='POST'>
             {% csrf_token %}
             <label for="email">Email: </label>
@@ -33,9 +32,10 @@
 			<button class="ghost" id="signUp">Sign Up</button>
 		</div>
 	</div>
+            </div>
         </form>
 		
-	<body>
+
 		<script type="text/javascript">
 			const signUpButton = document.getElementById('signUp');
 			const signInButton = document.getElementById('signIn');
@@ -48,8 +48,5 @@
 				container.classList.remove("right-panel-active");
 			});
 		</script>
-	</body>
 
-
-		
 {% endblock %}
