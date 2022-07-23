@@ -36,7 +36,6 @@ class ChannelView(View, LoginRequiredMixin):
 
         messages = channel.message_set.all()
         show_poll_pks = [int(i) for i in request.user.uservote_set.all().values_list('poll', flat=True)]
-        # breakpoint()
         return render(request, "channelsapp/channels.html", {"room_name": room_name, "messages": messages, "polls": channel.poll_set.all(),
                         "show_poll_pks": show_poll_pks})
 
@@ -47,7 +46,6 @@ def create_poll(request):
     channel = request.user.channel
     poll = Poll.objects.create(prompt=request.POST["prompt"], channel=channel)
     choices = []
-    breakpoint()
     for i in request.POST["options"].replace("\r", "").split("\n"):
         if not i.strip(): continue
         choices.append(Choice(choice=i, poll=poll))
