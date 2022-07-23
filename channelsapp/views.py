@@ -11,7 +11,10 @@ def get_geolocation_for_ip(ip):
     response.raise_for_status()
     return response.json()
 
-class ChannelView(View):
+class ChannelView(View, LoginRequiredMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request, pk):
         ip = get_client_ip(request)
         geo_info = get_geolocation_for_ip(ip)
@@ -20,14 +23,13 @@ class ChannelView(View):
             channel = Channel.objects.get(loctation=geo_info["zip"])
         except:
             channel = Channel(name="dummy", location=geo_info["zip"])
+            channel.save()
             channel.name = f"Channel #{channel.pk}"
             channel.save()
-
-        breakpoint()
-        if channel.member_set.count() < 3:
-            request.user.is_mod = True
         request.user.channel = channel
         request.user.save()
+        if channel.member_set.count() < 3:
+            request.user.is_mod = True
 
         return render(request, "rallyapp/base.html", {"pk": pk})
 
