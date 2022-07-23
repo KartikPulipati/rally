@@ -135,3 +135,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ["EMAIL"]
 EMAIL_HOST_PASSWORD = os.environ["PASSWORD"]
 EMAIL_PORT = 587
+
+IPSTACK_ACCESS_KEY = os.environ["IPSTACK_ACCESS_KEY"]

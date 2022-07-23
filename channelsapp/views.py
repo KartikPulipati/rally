@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.views import View
 from ipware import get_client_ip
 import requests
+from django.conf import settings
 
 def get_geolocation_for_ip(ip):
-    url = f"http://api.ipstack.com/{ip}?access_key={access_key_from_ip_stack}"
+    print(ip)
+    url = f"http://api.ipstack.com/{ip}?access_key={settings.IPSTACK_API_KEY}"
     response = requests.get(url)
     response.raise_for_status()
     return response.json()
