@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views import View
+from django.views import View, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 def home(request):
@@ -11,7 +11,12 @@ class Petition(View, LoginRequiredMixin):
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
+
         return render(request, "rallyapp/petition.html")
 
     def post(self, request):
         pass
+
+def sign(request):
+    
+    return render(request, "rallyapp/sign.html")
