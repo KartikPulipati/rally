@@ -21,7 +21,7 @@ from rallyapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', include('rallyapp.urls')),
     path('channels/', include('channelsapp.urls')),
     path('auth/', include('authUser.urls')),
 
