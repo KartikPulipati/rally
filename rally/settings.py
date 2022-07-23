@@ -137,3 +137,5 @@ EMAIL_HOST_PASSWORD = os.environ["PASSWORD"]
 EMAIL_PORT = 587
 
 IP_API_KEY = os.environ["IP_API_KEY"]
+
+AUTH_USER_MODEL = 'authUser.Member'
