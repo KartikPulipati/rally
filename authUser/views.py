@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 
-
 def signUp(request):
     if request.method == 'POST':
         form = signUpForm(request.POST)
@@ -19,4 +18,21 @@ def signUp(request):
     else:
         form = signUpForm()
     return render(request, "authUser/signUp.html", {'form': form})
+
+def loginUser(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'authUser/login.html', {'error': 'Invalid email or password'})
+    else:
+        return render(request, 'authUser/login.html')
+
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
 

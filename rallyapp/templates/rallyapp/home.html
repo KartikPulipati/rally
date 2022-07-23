@@ -5,7 +5,10 @@
 {%  block content %}
 
     {{ request.user.first_name }} {{ request.user.last_name }}
-    Do More!
-
-
+    <br>
+    {% if request.user.is_authenticated  %}
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
 {% endblock %}
