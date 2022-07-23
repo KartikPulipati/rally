@@ -10,7 +10,7 @@ class Petition(models.Model):
         return self.name + " " + self.email + " " + self.message
 
 
-class Singature(models.Model):
+class Signature(models.Model):
     petition = models.ForeignKey(Petition, on_delete=models.CASCADE)
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
 

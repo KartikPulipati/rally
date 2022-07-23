@@ -1,9 +1,18 @@
 {% extends 'rallyapp/base.html' %}
+{% load static %}
+
+{% block title %} Sign Up {% endblock %}
+
+    {% block content %}
 <form method='POST'>
     {% csrf_token %}
     {% for f in form %}
-        {{ f  }}
+        <p>
+        {{ f.label_tag }}
+        {{ f }}
+        </p>
+        {{ f.errors }}
     {% endfor %}
+    <button type='submit'>Sign Up!</button>
 </form>
-{% load static %}
-
+{%  endblock %}
