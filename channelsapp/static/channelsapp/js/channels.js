@@ -13,7 +13,8 @@ chatSocket.onmessage = function(e) {
     // JSON.parse() converts the JSON object back into the original object,
     // then examine and act upon its contents.
     const data = JSON.parse(e.data);
-    document.querySelector('#chat-log').value += (data.message + '\n');
+    document.querySelector('#chat-log').innerText += data.message + " by " + data.author;
+    document.querySelector('#chat-log').innerHTML += '<br>';
 };
 
 // onclose - An event listener to be called when the connection is closed.
@@ -34,7 +35,8 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
 
     // Send the msg object as a JSON-formatted string.
     chatSocket.send(JSON.stringify({
-        'message': message
+        'message': message,
+        'author': $("#username").text(),
     }));
 
     // Blank the text input element, ready to receive the next line of text from the user.
