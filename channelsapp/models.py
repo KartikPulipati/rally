@@ -4,7 +4,7 @@ from django.db import models
 
 class Channel(models.Model):
     name = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
+    location = models.IntegerField()
 
 class Poll(models.Model):
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
