@@ -1,17 +1,24 @@
 {% extends "rallyapp/base.html" %}
 {% load static %}
 
+{% block css %}
+
+{% endblock %}
+
 {% block content %}
 <h3>Welcome, <span id="username">{{ user.first_name }}</span></h3>
 <br>
+
+
+<div id="chat-log" class="h-100 w-100">
 {% for message in messages %}
     {{ message.author }} {{ message.timestamp|date:"h:i A" }}
     <br>
     {{ message.message }}
     <br>
 {% endfor %}
-
-<div id="chat-log" class="h-100 w-100"></div><br>
+</div>
+    <br>
 <input id="chat-message-input" type="text" size="100"><br>
 <input id="chat-message-submit" type="button" value="Send">
 {% if user.is_mod %}
@@ -30,7 +37,6 @@
     </form>
 {% endif %}
 {% for poll in polls %}
-    {% comment %} create a poll html template {% endcomment %}
     <div class="poll">
         <h4>{{ poll.prompt }}</h4>
         <div class="poll-choices">

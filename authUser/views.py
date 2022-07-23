@@ -35,7 +35,7 @@ def signUp(request):
                 channel.save()
             if channel.member_set.count() < 3:
                 user.is_mod = True
-                
+
             user.channel = channel
             user.save()
             login(request, user)

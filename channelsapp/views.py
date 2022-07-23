@@ -7,23 +7,19 @@ import requests
 from .models import Channel, Poll, Choice, UserVote
 from django.conf import settings
 
+
 class ChannelView(View, LoginRequiredMixin):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
 
     def get(self, request, room_name):
-        ip = get_client_ip(request)
-        geo_info = get_geolocation_for_ip(ip)
-
-        channel = request.user.channel
         channel = request.user.channel
         messages = channel.message_set.all()
         show_poll_pks = [int(i) for i in request.user.uservote_set.all().values_list('poll', flat=True)]
-        return render(request, "channelsapp/channels.html", {"room_name": room_name, "messages": messages, "polls": channel.poll_set.all(),
-                        "show_poll_pks": show_poll_pks})
+        return render(request, "channelsapp/channels.html",
+                      {"room_name": room_name, "messages": messages, "polls": channel.poll_set.all(),
+                       "show_poll_pks": show_poll_pks})
 
-    def post(self, request, pk):
-        pass
 
 def create_poll(request):
     channel = request.user.channel
@@ -34,6 +30,7 @@ def create_poll(request):
         choices.append(Choice(choice=i, poll=poll))
     Choice.objects.bulk_create(choices)
     return redirect("channel", room_name=channel.pk)
+
 
 def poll_vote(request):
     UserVote.objects.create(user=request.user, poll=Poll.objects.get(pk=request.POST["poll_id"]))
