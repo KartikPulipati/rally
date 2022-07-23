@@ -30,7 +30,19 @@
     </form>
 {% endif %}
 {% for poll in polls %}
-    hi
+    {% comment %} create a poll html template {% endcomment %}
+    <div class="poll">
+        <h4>{{ poll.prompt }}</h4>
+        <div class="poll-choices">
+            {% for choice in poll.choice_set.all %}
+                <div class="poll-choice">
+                    {{ choice.choice }} : {{ choice.votes }} Votes.
+                    
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
 {% endfor %}
 {{ room_name|json_script:"room-name" }}
 
