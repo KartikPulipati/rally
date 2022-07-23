@@ -1,0 +1,17 @@
+{% extends 'app/base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{%  block content %}
+    <a href="{% url 'signup' %}">Go to Signup!</a>
+
+    {{ user.username }}
+    {{ user.profile.birthday }}
+    {%  if user.profile.is_email_verified %}
+
+    Do More!
+
+    {%  endif %}
+
+
+{% endblock %}

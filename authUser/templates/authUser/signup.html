@@ -1,0 +1,17 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+  <h2>Sign up</h2>
+    {% if user.is_authenticated %}
+      You are already logged in!
+        <a href="{% url 'home' %}">Go back!</a>
+    {% else %}
+        <form method="post">
+    {% csrf_token %}
+      {{ erorr }}
+    {{ form.as_p }}
+    {{ pform.as_p }}
+    <button type="submit">Sign up</button>
+  </form>
+    {% endif %}
+{% endblock %}

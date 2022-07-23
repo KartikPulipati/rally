@@ -1,0 +1,4 @@
+Hello {{ first_name }}
+Activate your account using this code: {{ code }}
+This is your code. If you reload or open the Verification page again a new code will be emailed!
+
