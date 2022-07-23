@@ -1,11 +1,12 @@
 {% extends 'rallyapp/base.html' %}
+{%  load static %}
 
 {% block title %} Login {% endblock %}
 
     {% block content %}
 	<head>
 		<title>SignUp and Login</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="{%  static 'authUser/css/style.css' %}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 
