@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views import View, FormView
+from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Petition, Signature
 
 def home(request):
     return render(request, "rallyapp/home.html")
@@ -17,6 +18,7 @@ class Petition(View, LoginRequiredMixin):
     def post(self, request):
         pass
 
-def sign(request):
-    
-    return render(request, "rallyapp/sign.html")
+def sign(request, pk):
+    if not Signature.objects.filter(member=request.user, petition=Petition.objects.get(pk=pk)).exists():
+        return render(request, "rallyapp/sign.html")
+
