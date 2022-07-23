@@ -45,3 +45,7 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
     // Blank the text input element, ready to receive the next line of text from the user.
     messageInputDom.value = '';
 };
+
+$("#start-poll").click(() => {
+    $("#poll-form").show();
+});

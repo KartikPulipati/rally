@@ -3,7 +3,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from ipware import get_client_ip
 import requests
-from .models import Channel
+from .models import Channel, Poll, Choice
 from django.conf import settings
 
 def get_geolocation_for_ip(ip):
@@ -31,14 +31,19 @@ class ChannelView(View, LoginRequiredMixin):
         request.user.save()
         if channel.member_set.count() < 3:
             request.user.is_mod = True
+        request.user.save()
 
         messages = channel.message_set.all()
-        return render(request, "channelsapp/channels.html", {"room_name": room_name, "messages": messages})
+        return render(request, "channelsapp/channels.html", {"room_name": room_name, "messages": messages, "polls": channel.poll_set.all()})
 
     def post(self, request, pk):
-        channel_code = request.POST.get("channel_code")
-        message = request.POST.get("message")
-        return redirect(
-            '/play/%s?&message=%s' 
-            %(channel_code, message)
-        )
+        pass
+
+def create_poll(request):
+    channel = request.user.channel
+    poll = Poll.objects.create(prompt=request.POST["prompt"], channel=channel)
+    choices = []
+    for i in request.POST["options"].replace("\r", "").split("\n"):
+        choices.append(Choice(choice=i, poll=poll))
+    Choice.objects.bulk_create(choices)
+    return redirect("channel", room_name=channel.pk)
