@@ -8,6 +8,13 @@ class Channel(models.Model):
     def __str__(self):
         return self.name
 
+class Message(models.Model):
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
+    author = models.CharField(max_length=255)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.message
 
 class Poll(models.Model):
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
