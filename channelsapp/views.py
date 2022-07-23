@@ -21,7 +21,7 @@ class ChannelView(View, LoginRequiredMixin):
         geo_info = get_geolocation_for_ip(ip)
 
         try:
-            channel = Channel.objects.get(loctation=geo_info["zip"])
+            channel = Channel.objects.get(location=geo_info["zip"])
         except:
             channel = Channel(name="dummy", location=geo_info["zip"])
             channel.save()
