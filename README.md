@@ -1,4 +1,4 @@
-# Base Template for my django projects
+# Instructions to setup development environment for this project.
 
 ### How to use this repository!
 ###### *This is done with Mac commands*
