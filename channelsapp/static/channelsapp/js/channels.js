@@ -16,6 +16,7 @@ chatSocket.onmessage = function(e) {
     document.querySelector('#chat-log').innerText += data.author + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     document.querySelector('#chat-log').innerHTML += '<br>';
     document.querySelector('#chat-log').innerText += data.message;
+    document.querySelector('#chat-log').innerHTML += '<br>';
 };
 
 // onclose - An event listener to be called when the connection is closed.
@@ -48,4 +49,25 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
 
 $("#start-poll").click(() => {
     $("#poll-form").show();
+});
+
+$(".vote-button").click(function() {
+    const poll_id = $(this).attr("data-poll-id");
+    const choice_id = $(this).attr("data-choice-id");
+    $(".vote-button").filter(function() {
+        return $(this).is("[data-poll-id='" + poll_id + "']");
+    }).hide();
+    const choiceelement = $(".choice-number").filter(function() {
+        return $(this).is("[data-choice-id='" + choice_id + "']");
+    })
+    choiceelement.text(parseInt(choiceelement.text()) + 1);
+    $.ajax({
+        url: '/channels/poll-vote',
+        type: 'POST',
+        data: {
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').first().val(),
+            poll_id: poll_id,
+            choice_id: choice_id,
+        },
+    });
 });

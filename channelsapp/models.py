@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class Channel(models.Model):
@@ -32,4 +33,11 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice
+
+class UserVote(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user.username} voted for {self.poll.prompt}'
 

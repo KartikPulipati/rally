@@ -1,9 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from ipware import get_client_ip
 import requests
-from .models import Channel, Poll, Choice
+from .models import Channel, Poll, Choice, UserVote
 from django.conf import settings
 
 def get_geolocation_for_ip(ip):
@@ -34,7 +35,10 @@ class ChannelView(View, LoginRequiredMixin):
         request.user.save()
 
         messages = channel.message_set.all()
-        return render(request, "channelsapp/channels.html", {"room_name": room_name, "messages": messages, "polls": channel.poll_set.all()})
+        show_poll_pks = [int(i) for i in request.user.uservote_set.all().values_list('poll', flat=True)]
+        # breakpoint()
+        return render(request, "channelsapp/channels.html", {"room_name": room_name, "messages": messages, "polls": channel.poll_set.all(),
+                        "show_poll_pks": show_poll_pks})
 
     def post(self, request, pk):
         pass
@@ -48,3 +52,10 @@ def create_poll(request):
         choices.append(Choice(choice=i, poll=poll))
     Choice.objects.bulk_create(choices)
     return redirect("channel", room_name=channel.pk)
+
+def poll_vote(request):
+    UserVote.objects.create(user=request.user, poll=Poll.objects.get(pk=request.POST["poll_id"]))
+    a = Choice.objects.get(pk=request.POST["choice_id"])
+    a.votes += 1
+    a.save()
+    return HttpResponse(status=204)
