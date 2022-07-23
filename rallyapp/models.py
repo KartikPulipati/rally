@@ -8,7 +8,7 @@ class Petition(models.Model):
     description = models.CharField(max_length=1500)
 
     def __str__(self):
-        return self.name + " " + self.email + " " + self.message
+        return self.name + " created by " + self.created_by.first_name
 
 
 class Signature(models.Model):

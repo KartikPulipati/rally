@@ -14,7 +14,7 @@ class PetitionView(View, LoginRequiredMixin):
 
     def get(self, request):
         petitions = Petition.objects.all()
-        return render(request, "rallyapp/petition.html", {"petitions": petitions})
+        return render(request, "rallyapp/petitions.html", {"petitions": petitions})
 
     def post(self, request):
         pass
@@ -22,4 +22,9 @@ class PetitionView(View, LoginRequiredMixin):
 def sign(request, pk):
     if not Signature.objects.filter(member=request.user, petition=Petition.objects.get(pk=pk)).exists():
         return render(request, "rallyapp/sign.html")
+
+def view_petition(request, pk):
+    petition = Petition.objects.get(pk=pk)
+    signatures = Signature.objects.filter(petition=petition)
+    return render(request, "rallyapp/view_petition.html", {"petition": petition, "signatures": signatures})
 
