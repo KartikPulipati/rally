@@ -3,6 +3,7 @@ from authUser.models import Member
 
 
 class Petition(models.Model):
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=1500)
 
