@@ -6,6 +6,7 @@ from channelsapp.models import Channel
 class Member(AbstractUser, PermissionsMixin):
     email = models.EmailField(unique=True, max_length=255)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
+    is_mod = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ['username']
