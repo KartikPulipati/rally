@@ -1,0 +1,28 @@
+{% extends "rallyapp/base.html" %}
+{% load static %}
+
+{% block content %}
+<template id="message-template">
+    <div class="message">
+        <div class="message-header">
+            <div class="message-author">
+                <a href="#">{{ author }}</a>
+            </div>
+            <div class="message-time">
+                {{ time }}
+            </div>
+        </div>
+        <div class="message-body">
+            {{ body }}
+        </div>
+    </div>
+</template>
+
+
+<textarea id="chat-log" cols="100" rows="20"></textarea><br>
+<input id="chat-message-input" type="text" size="100"><br>
+<input id="chat-message-submit" type="button" value="Send">
+{{ room_name|json_script:"room-name" }}
+
+<script src="{% static 'channelsapp/js/channels.js' %}"></script>
+{% endblock %}
