@@ -8,13 +8,13 @@ def home(request):
     return render(request, "rallyapp/home.html")
 
 
-class Petition(View, LoginRequiredMixin):
+class PetitionView(View, LoginRequiredMixin):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-
-        return render(request, "rallyapp/petition.html")
+        petitions = Petition.objects.all()
+        return render(request, "rallyapp/petition.html", {"petitions": petitions})
 
     def post(self, request):
         pass

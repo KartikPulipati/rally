@@ -1,0 +1,9 @@
+{% extends "rallyapp/base.html" %}
+
+{% block content %}
+    <a href="/channels/{{ request.user.id }}">Go to your channel</a>
+    {% for petition in petitions %}
+        <div class="petition">
+
+    {% endfor %}
+{% endblock %}
