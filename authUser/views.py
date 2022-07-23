@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import SignupForm, ProfileForm
 from .models import profile
 from django.core.mail import EmailMessage
-from mysite import settings
+from rally import settings
 
 code = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
 
