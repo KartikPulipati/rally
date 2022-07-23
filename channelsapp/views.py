@@ -32,7 +32,8 @@ class ChannelView(View, LoginRequiredMixin):
         if channel.member_set.count() < 3:
             request.user.is_mod = True
 
-        return render(request, "channelsapp/channels.html", {"room_name": room_name})
+        messages = channel.message_set.all()
+        return render(request, "channelsapp/channels.html", {"room_name": room_name, "messages": messages})
 
     def post(self, request, pk):
         channel_code = request.POST.get("channel_code")

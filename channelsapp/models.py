@@ -12,6 +12,7 @@ class Message(models.Model):
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
     author = models.CharField(max_length=255)
     message = models.TextField()
+    timestamp = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.message

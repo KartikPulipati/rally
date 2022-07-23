@@ -2,22 +2,14 @@
 {% load static %}
 
 {% block content %}
-<template id="message-template">
-    <div class="message">
-        <div class="message-header">
-            <div class="message-author">
-                <a href="#">{{ author }}</a>
-            </div>
-            <div class="message-time">
-                {{ time }}
-            </div>
-        </div>
-        <div class="message-body">
-            {{ body }}
-        </div>
-    </div>
-</template>
-<span id="username">{{ user.first_name }}</span>
+<h3>Welcome, <span id="username">{{ user.first_name }}</span></h3>
+<br>
+{% for message in messages %}
+    {{ message.author }} {{ message.timestamp|date:"h:i A" }}
+    <br>
+    {{ message.message }}
+    <br>
+{% endfor %}
 
 <div id="chat-log" class="h-100 w-100"></div><br>
 <input id="chat-message-input" type="text" size="100"><br>

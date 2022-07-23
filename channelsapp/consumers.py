@@ -1,6 +1,7 @@
 import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
+from django.utils import timezone
 from .models import Channel, Message
 
 
@@ -8,7 +9,7 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
-        self.channel_instance = Channel.objects.get(pk=self.room_name)
+        self.channel_instance = Channel.objects.get(pk=int(self.room_name))
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
@@ -31,7 +32,8 @@ class ChatConsumer(WebsocketConsumer):
         message = text_data_json['message']
         author = text_data_json['author']
     
-        message = Message(author=author, message=message, channel=self.channel_instance)
+        message = Message(author=author, message=message, channel=self.channel_instance,
+                            timestamp=timezone.now())
         message.save()
 
         # Send message to room group
@@ -39,8 +41,9 @@ class ChatConsumer(WebsocketConsumer):
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': message,
+                'message': message.message,
                 'author': author,
+                'timestamp': message.timestamp.strftime("%H:%M:%S")
             }
         )
 
