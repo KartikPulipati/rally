@@ -132,6 +132,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 
-EMAIL_HOST_USER = "verficationemailbluecoder@gmail.com"
-EMAIL_HOST_PASSWORD = None
+EMAIL_HOST_USER = os.environ["EMAIL"]
+EMAIL_HOST_PASSWORD = os.environ["PASSWORD"]
 EMAIL_PORT = 587
