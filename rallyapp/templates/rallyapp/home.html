@@ -4,13 +4,8 @@
 
 {%  block content %}
 
-    {{ user.username }}
-    {{ user.profile.birthday }}
-    {%  if user.profile.is_email_verified %}
-
+    {{ request.user.first_name }} {{ request.user.last_name }}
     Do More!
-
-    {%  endif %}
 
 
 {% endblock %}
