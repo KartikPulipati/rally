@@ -19,4 +19,5 @@ from rallyapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('channels/', include('channelsapp.urls')),
 ]
