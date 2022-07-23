@@ -47,8 +47,9 @@ def create_poll(request):
     channel = request.user.channel
     poll = Poll.objects.create(prompt=request.POST["prompt"], channel=channel)
     choices = []
+    breakpoint()
     for i in request.POST["options"].replace("\r", "").split("\n"):
-        if not i: continue
+        if not i.strip(): continue
         choices.append(Choice(choice=i, poll=poll))
     Choice.objects.bulk_create(choices)
     return redirect("channel", room_name=channel.pk)
