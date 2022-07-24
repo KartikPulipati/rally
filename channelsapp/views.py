@@ -1,18 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
-from ipware import get_client_ip
-import requests
-from .models import Channel, Poll, Choice, UserVote
-from django.conf import settings
+from .models import Poll, Choice, UserVote
 
 
-class ChannelView(View, LoginRequiredMixin):
-    login_url = '/login/'
-    redirect_field_name = 'redirect_to'
+class ChannelView(View):
 
     def get(self, request, room_name):
+        if not request.user.is_authenticated:
+            return redirect('login')
         channel = request.user.channel
         messages = channel.message_set.all()
         show_poll_pks = [int(i) for i in request.user.uservote_set.all().values_list('poll', flat=True)]
