@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import FormView
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Petition, Signature
@@ -8,9 +9,7 @@ def home(request):
     return render(request, "rallyapp/home.html")
 
 
-class PetitionView(View, LoginRequiredMixin):
-    login_url = '/login/'
-    redirect_field_name = 'redirect_to'
+class PetitionView(View):
 
     def get(self, request):
         petitions = Petition.objects.all()
@@ -18,6 +17,12 @@ class PetitionView(View, LoginRequiredMixin):
 
     def post(self, request):
         pass
+
+class PetitionCreateView(FormView):
+    template_name = "rallyapp/petition_create.html"
+    form_class = PetitionForm
+    success_url = "/petitions"
+
 
 def sign(request, pk):
     if not Signature.objects.filter(member=request.user, petition=Petition.objects.get(pk=pk)).exists():

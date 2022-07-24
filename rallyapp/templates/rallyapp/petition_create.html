@@ -1,0 +1,26 @@
+{% extends "rallyapp/base.html" %}
+
+{% block css %}{% endblock %}
+{% block content %}
+{% comment %} create a nice-looking form with bootstrap {% endcomment %}
+<div class="container" style="margin-top: 15px;">
+    <div class="row" style="justify-content: center;">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Create a Petition</h1>
+            <form method="post">
+                <div class="form-group">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <p>
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {{ field.errors }}
+                    </p>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary" style="width: 100%; display: block;">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
