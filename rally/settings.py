@@ -83,12 +83,25 @@ ASGI_APPLICATION = 'rally.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.environ.get('DATABASE_URL') is not None:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': os.environ['PGHOST'],
+            'PORT': os.environ['PGPORT'],
+            'NAME': os.environ.get('PGDATABASE', 'timewebdb'),
+            'USER': os.environ.get('PGUSER', 'postgres'),
+            'PASSWORD': os.environ['PGPASSWORD'],
+        }
     }
-}
+else:
+    # If running locally, use a sqlite database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 CHANNEL_LAYERS = {
     'default': {
@@ -167,3 +180,16 @@ EMAIL_PORT = 587
 IP_API_KEY = os.environ["IP_API_KEY"]
 
 AUTH_USER_MODEL = 'authUser.Member'
+
+
+
+
+CSRF_TRUSTED_ORIGINS = ["https://rally-production.up.railway.app"]
+
+STATICFILES_STORAGE = 'rallyapp.gcloud_storages.GoogleCloudStaticFileStorage'
+    
+GS_DEFAULT_ACL = None
+GS_QUERYSTRING_AUTH = False
+GS_STATIC_BUCKET_NAME = 'rallystatic'
+
+GS_PROJECT_ID = 'timeweb-308201'

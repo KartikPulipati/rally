@@ -29,30 +29,30 @@
             <br>
             <textarea id="poll-options" type="text" name="options">
         </textarea>
-            <button type="submit">
-                Create poll
-            </button>
-        </form>
-    {% endif %}
-    {% for poll in polls %}
-        <div class="poll">
-            <h4>{{ poll.prompt }}</h4>
-            <div class="poll-choices">
-                {% for choice in poll.choice_set.all %}
-                    <br>
-                    {{ choice.choice }} :
-                    <span data-choice-id="{{ choice.id }}" class="choice-number">{{ choice.votes }}</span> Votes
+        <button type="submit">
+            Create poll
+        </button>
+    </form>
+{% endif %}
+<button id="create-petition">Create a petition</button>
+{% for poll in polls %}
+    <div class="poll">
+        <h4>{{ poll.prompt }}</h4>
+        <div class="poll-choices">
+            {% for choice in poll.choice_set.all %}
+                <br>
+                {{ choice.choice }} : <span data-choice-id="{{ choice.id }}" class="choice-number">{{ choice.votes }}</span> Votes
 
-                    {% if not poll.id in show_poll_pks %}
-                        <button class="vote-button" data-poll-id="{{ poll.id }}" data-choice-id="{{ choice.id }}">
-                            Vote
-                        </button>
-                    {% endif %}
-                {% endfor %}
-            </div>
+                {% if not poll.id in show_poll_pks %}
+                    <button class="vote-button" data-poll-id="{{ poll.id }}" data-choice-id="{{ choice.id }}">
+                        Vote
+                    </button>
+                {% endif %}
+            {% endfor %}
         </div>
-    {% endfor %}
-    {{ room_name|json_script:"room-name" }}
+    </div>
+{% endfor %}
+{{ room_name|json_script:"room-name" }}
 
 
     <script src="{% static 'channelsapp/js/channels.js' %}"></script>
