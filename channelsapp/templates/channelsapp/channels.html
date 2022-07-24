@@ -6,54 +6,62 @@
 {% endblock %}
 
 {% block content %}
-    <h3>Channel Zip Code - {{ channel.name }}</h3>
-    <br>
-    <div id="chat-log" class="chat-box" >
-        {% for message in messages %}
-            {{ message.author }} {{ message.timestamp|date:"h:i A" }}
-            <br>
-            {{ message.message }}
-            <br>
-        {% endfor %}
-    </div>
-    <br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
-    {% if user.is_mod %}
-        <input id="start-poll" type="button" value="Start poll">
-        <form method="POST" id="poll-form" style="display: none;" action="create-poll">
-            {% csrf_token %}
-            <input id="prompt" type="text" name="prompt" placeholder="Prompt">
-            <br>
-            Separate each new option with a new line:
-            <br>
-            <textarea id="poll-options" type="text" name="options">
-        </textarea>
-        <button type="submit">
-            Create poll
-        </button>
-    </form>
-{% endif %}
-<button id="create-petition">Create a petition</button>
-{% for poll in polls %}
-    <div class="poll">
-        <h4>{{ poll.prompt }}</h4>
-        <div class="poll-choices">
-            {% for choice in poll.choice_set.all %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>{{ channel.name }}</h3>
                 <br>
-                {{ choice.choice }} : <span data-choice-id="{{ choice.id }}" class="choice-number">{{ choice.votes }}</span> Votes
-
-                {% if not poll.id in show_poll_pks %}
-                    <button class="vote-button" data-poll-id="{{ poll.id }}" data-choice-id="{{ choice.id }}">
-                        Vote
-                    </button>
+                <div id="chat-log" class="chat-box">
+                    {% for message in messages %}
+                        {{ message.author }} {{ message.timestamp|date:"h:i A" }}
+                        <br>
+                        {{ message.message }}
+                        <br>
+                    {% endfor %}
+                </div>
+                <br>
+                <input id="chat-message-input" type="text" size="100"><br>
+                <input id="chat-message-submit" type="button" value="Send">
+            </div>
+            <div class="col">
+                {% if user.is_mod %}
+                    <input id="start-poll" type="button" value="Start poll">
+                    <form method="POST" id="poll-form" style="display: none;" action="create-poll">
+                        {% csrf_token %}
+                        <input id="prompt" type="text" name="prompt" placeholder="Prompt">
+                        <br>
+                        Separate each new option with a new line:
+                        <br>
+                        <textarea id="poll-options" type="text" name="options"></textarea>
+                        <button type="submit">
+                            Create poll
+                        </button>
+                    </form>
                 {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-{% endfor %}
-{{ room_name|json_script:"room-name" }}
+                {% for poll in polls %}
+                    <div class="poll">
+                        <h4>{{ poll.prompt }}</h4>
+                        <div class="poll-choices">
+                            {% for choice in poll.choice_set.all %}
+                                <br>
+                                {{ choice.choice }} :
+                                <span data-choice-id="{{ choice.id }}" class="choice-number">{{ choice.votes }}</span>
+                                Votes
 
+                                {% if not poll.id in show_poll_pks %}
+                                    <button class="vote-button" data-poll-id="{{ poll.id }}"
+                                            data-choice-id="{{ choice.id }}">
+                                        Vote
+                                    </button>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                {% endfor %}
+        {{ room_name|json_script:"room-name" }}
+    </div>
 
     <script src="{% static 'channelsapp/js/channels.js' %}"></script>
 {% endblock %}

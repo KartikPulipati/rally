@@ -1,5 +1,3 @@
 .chat-box{
-    position:absolute;
-    left:50px;
-
+    outline: 5px solid black;
 }
