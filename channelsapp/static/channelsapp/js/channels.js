@@ -13,8 +13,8 @@ chatSocket.onmessage = function(e) {
     // JSON.parse() converts the JSON object back into the original object,
     // then examine and act upon its contents.
     const data = JSON.parse(e.data);
-    document.querySelector('#chat-log').innerHTML += "<span class=\"author\">" + data.author + "</span>";
-    document.querySelector('#chat-log').innerHTML += "<span class=\"message\">" + data.message + "</span>" + "<span class=\"time\">" +new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + "</span>";
+    let a = "<span class=\"author\">" + data.author + "</span>" + "<span class=\"message\">" + data.message + "</span>" + "<span class=\"time\">" +new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + "</span>";
+    $('#chat-log').append("<div class=\"set\">" + a + "</div>");
 
 };
 
