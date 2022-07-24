@@ -1,0 +1,17 @@
+{% extends 'rallyapp/base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<form method="post" style="width: 450px;">
+    {% csrf_token %}
+    <h1>Sign Up</h1>
+    {% for f in form %}
+            {{ f.label_tag }}
+            {{ f }}
+            {{ f.errors }}
+            <br>
+    {% endfor %}
+    <button type="submit">Sign Up</button>
+</form>
+{% endblock %}

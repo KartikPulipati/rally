@@ -8,13 +8,10 @@
     <div class="container" id="container">
     <div class="form-container sign-up-container">
 
-        <form method="POST" action="{%  url 'signUp' %}">
+        <form>
+            {% csrf_token %}
             <h1>Create Account</h1>
-            {% for f in form %}
-            {{ f.label_tag }}
-            {{ f }}
-            {% endfor %}
-            <button type="submit">SignUp</button>
+            <a href="{% url 'signUp' %}" id="signUpButton">SignUp</a>
         </form>
     </div>
 
