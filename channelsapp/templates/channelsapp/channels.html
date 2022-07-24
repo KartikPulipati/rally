@@ -11,11 +11,14 @@
             <div class="col">
                 <h3 style="margin-bottom:40px; margin-top:10px; text-decoration: underline;">{{ channel.name }}</h3>
                 <div id="chat-log" class="chat-box">
+
                     {% for message in messages %}
-                        <span class="author">{{ message.author }}</span> <span class="time">{{ message.timestamp|date:"h:i A" }}</span>
-                        <br>
-                        {{ message.message }}
-                        <br>
+                        <div class="set">
+                            <span class="author">{{ message.author }}</span>
+                            <span class="message">{{ message.message }}</span> <span
+                                class="time">{{ message.timestamp|date:"h:i A" }}</span>
+                            <br>
+                        </div>
                     {% endfor %}
                 </div>
                 <br>

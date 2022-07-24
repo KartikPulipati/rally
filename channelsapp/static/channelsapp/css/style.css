@@ -7,9 +7,15 @@
 }
 
 .author{
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 .time{
-    font-size: 0.5rem;
+    font-size: 0.6rem;
+}
+
+.message{
+    font-size: 1.3rem;
+    margin-left: 10px;
+    margin-bottom: 100px;
 }
