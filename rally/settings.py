@@ -94,6 +94,15 @@ if os.environ.get('DATABASE_URL') is not None:
             'PASSWORD': os.environ['PGPASSWORD'],
         }
     }
+    CSRF_TRUSTED_ORIGINS = ["https://rally.up.railway.app"]
+
+    STATICFILES_STORAGE = 'rallyapp.gcloud_storages.GoogleCloudStaticFileStorage'
+        
+    GS_DEFAULT_ACL = None
+    GS_QUERYSTRING_AUTH = False
+    GS_STATIC_BUCKET_NAME = 'rallystatic'
+
+    GS_PROJECT_ID = 'timeweb-308201'
 else:
     # If running locally, use a sqlite database
     DATABASES = {
@@ -180,16 +189,3 @@ EMAIL_PORT = 587
 IP_API_KEY = os.environ["IP_API_KEY"]
 
 AUTH_USER_MODEL = 'authUser.Member'
-
-
-
-
-CSRF_TRUSTED_ORIGINS = ["https://rally-production.up.railway.app"]
-
-STATICFILES_STORAGE = 'rallyapp.gcloud_storages.GoogleCloudStaticFileStorage'
-    
-GS_DEFAULT_ACL = None
-GS_QUERYSTRING_AUTH = False
-GS_STATIC_BUCKET_NAME = 'rallystatic'
-
-GS_PROJECT_ID = 'timeweb-308201'
