@@ -1,0 +1,24 @@
+.created-by {
+    position: absolute;
+    right: 0;
+}
+.petition-container {
+    position: relative;
+}
+body {
+    align-items: initial;
+    justify-content: initial;
+    margin-top: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+body, .container {
+    background-color: #f6f5f7 !important;
+
+}
+.row > div  {
+ margin-bottom: 10px;
+}
+h2 {
+    text-align: initial;
+}
