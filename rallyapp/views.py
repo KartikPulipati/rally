@@ -21,7 +21,12 @@ class PetitionView(View):
 class PetitionCreateView(FormView):
     template_name = "rallyapp/petition_create.html"
     form_class = PetitionForm
-    success_url = "/petitions"
+    success_url = "/petition"
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.save()
+        return super().form_valid(form)
 
 
 def sign(request, pk):

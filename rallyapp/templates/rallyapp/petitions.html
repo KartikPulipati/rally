@@ -8,6 +8,7 @@
 {% block content %}
     <div class="container" style="margin-top: 10px;">
         <h4>Popular Petitions</h4>
+        <a href="{% url 'petition-create' %}" class="btn btn-primary">Create a Petition</a>
         <hr>
         <div class="row">
             {% for petition in petitions %}
