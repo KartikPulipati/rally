@@ -20,6 +20,7 @@ def get_geolocation_for_ip(ip):
 
 
 def signUp(request):
+    form = signUpForm()
     if request.method == 'POST':
         ip = get_client_ip(request)
         geo_info = get_geolocation_for_ip(ip)
@@ -40,9 +41,7 @@ def signUp(request):
             user.save()
             login(request, user)
             return redirect('home')
-    else:
-        form = signUpForm()
-    return render(request, "authUser/signUp.html", {'form': form})
+    return render(request, "authUser/login.html", {'form': form})
 
 def loginUser(request):
     if request.method == 'POST':
