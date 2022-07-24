@@ -16,7 +16,10 @@ class PetitionView(View):
         petitions = Petition.objects.annotate(count=Count("signature__id")).order_by("-count")
         signed_petitions = petitions.select_related('created_by').filter(signature__member=request.user)
         my_petitions = petitions.filter(created_by=request.user)
-        return render(request, "rallyapp/petitions.html", {"petitions": petitions, "signed_petitions": signed_petitions, "my_petitions": my_petitions})
+        view_self = {"true": True, None: False, "false": False}[request.GET.get("view_self")]
+        if view_self:
+            petitions = my_petitions
+        return render(request, "rallyapp/petitions.html", {"petitions": petitions, "signed_petitions": signed_petitions, "my_petitions": my_petitions, "view_self": view_self})
 
     def post(self, request):
         pass
