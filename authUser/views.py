@@ -37,7 +37,11 @@ def signUp(request):
                     channel.name = f"Channel Zip Code - {geo_info['zip']}"
                     channel.save()
             else:
-                channel = Channel.objects.order_by('?')[0]
+                try:
+                    channel = Channel.objects.order_by('?')[0]
+                except:
+                    channel = Channel(name="Channel Zip Code - 94538")
+                    channel.save()
             if channel.member_set.count() < 3:
                 user.is_mod = True
 
