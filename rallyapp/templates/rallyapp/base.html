@@ -22,9 +22,9 @@
     </head>
     <body>
       {% block nav %}
-    <nav class="rounded navbar navbar-expand-lg" style="background: #FF416C; background: -webkit-linear-gradient(to right, #00B7D8, #00D4B0); background: linear-gradient(to right, #00B7D8, #00D4B0);position:fixed;margin:10px;width:98.5%" >
+    <nav class="rounded navbar navbar-expand-lg" style="background: #FF416C; background: -webkit-linear-gradient(to right, #00B7D8, #00D4B0); background: linear-gradient(to right, #00B7D8, #00D4B0);width:100%" >
   <div class="container-fluid">
-    <a class="navbar-brand" style="font-family: 'Edu TAS Beginner', cursive;" ref="{% url 'home' %}">Rally</a>
+    <a class="navbar-brand" style="font-family: 'Edu TAS Beginner', cursive;" href="{% url 'home' %}">Rally</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -8,6 +8,10 @@
     overflow-y: auto;
 }
 
+.set{
+    margin-bottom: 20px !important;
+}
+
 .author{
     font-size: 1.5rem;
     font-weight: bold;

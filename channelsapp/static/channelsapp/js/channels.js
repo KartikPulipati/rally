@@ -51,6 +51,7 @@ document.querySelector('#chat-message-submit').onclick = function(e) {
 
 $("#start-poll").click(() => {
     $("#poll-form").show();
+    $("#start-poll").hide();
 });
 
 $(".vote-button").click(function() {
