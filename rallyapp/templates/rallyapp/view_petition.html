@@ -1,5 +1,14 @@
 {% extends "rallyapp/base.html" %}
 
 {% block content %}
-        
+    <h1>Petition for {{ petition.name }}:</h1>
+    {{ petition.description }}
+    <hr>
+    <br>
+    <b>Signed by:</b>
+    <ul>
+    {% for signature in petition.signature_set.all %}
+        <li>{{ signature.member.first_name }}</li>
+    {% endfor %}
+    </ul>
 {% endblock %}
