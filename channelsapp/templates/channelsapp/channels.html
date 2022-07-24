@@ -11,7 +11,6 @@
             <div class="col">
                 <h3 style="margin-bottom:40px; margin-top:10px; text-decoration: underline;">{{ channel.name }}</h3>
                 <div id="chat-log" class="chat-box">
-
                     {% for message in messages %}
                         <div class="set">
                             <span class="author">{{ message.author }}</span>
@@ -21,9 +20,16 @@
                         </div>
                     {% endfor %}
                 </div>
+
                 <br>
-                <input id="chat-message-input" type="text" size="100"><br>
-                <input id="chat-message-submit" type="button" value="Send">
+
+                <div class="row">
+                    <div class="col">
+                        <input id="chat-message-input" type="text" size="100"><br>
+                        <input class="btn btn-info" id="chat-message-submit" style="display: block; width: 10%;"
+                               type="button" value="Send">
+                    </div>
+                </div>
             </div>
             <div class="col">
                 {% if user.is_mod %}
@@ -59,9 +65,10 @@
                             {% endfor %}
                         </div>
                     </div>
-                    </div>
-                    </div>
+
                 {% endfor %}
+            </div>
+        </div>
         {{ room_name|json_script:"room-name" }}
     </div>
     <script src="{% static 'channelsapp/js/channels.js' %}"></script>

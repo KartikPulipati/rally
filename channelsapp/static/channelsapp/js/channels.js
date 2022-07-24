@@ -13,10 +13,9 @@ chatSocket.onmessage = function(e) {
     // JSON.parse() converts the JSON object back into the original object,
     // then examine and act upon its contents.
     const data = JSON.parse(e.data);
-    document.querySelector('#chat-log').innerText += data.author + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    document.querySelector('#chat-log').innerHTML += '<br>';
-    document.querySelector('#chat-log').innerText += data.message;
-    document.querySelector('#chat-log').innerHTML += '<br>';
+    document.querySelector('#chat-log').innerText += "<span class=\"author\">" + data.author + "</span>";
+    document.querySelector('#chat-log').innerText += "<span class=\"message\">" + data.message + "</span>" + "<span class=\"time\">" +new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + "</span>";
+
 };
 
 // onclose - An event listener to be called when the connection is closed.
