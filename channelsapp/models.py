@@ -4,7 +4,7 @@ from django.conf import settings
 
 class Channel(models.Model):
     name = models.CharField(max_length=255)
-    location = models.IntegerField()
+    location = models.CharField(max_length=255)
 
     def __str__(self):
         return self.name
