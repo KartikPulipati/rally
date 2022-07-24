@@ -1,7 +1,14 @@
 .nav-link{
     color:white !important;
+    font-size:1.5rem !important;
+}
+
+.nav-link:hover{
+    color:black !important;
+    font-size:1.5rem !important;
 }
 
 .navbar-brand{
     color:white !important;
+    font-size:3rem !important;
 }
