@@ -13,10 +13,13 @@ chatSocket.onmessage = function(e) {
     // JSON.parse() converts the JSON object back into the original object,
     // then examine and act upon its contents.
     const data = JSON.parse(e.data);
-    let a = "<span class=\"author\">" + data.author + "</span>" + "<span class=\"message\">" + data.message + "</span>" + "<span class=\"time\">" +new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + "</span>";
-    $('#chat-log').append("<div class=\"set\">" + a + "</div>");
+    let a = "<span class=\"author\">" + data.author + "</span> <span class=\"message\">" + data.message + "</span> <span class=\"time\">" +new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + "</span>";
+    $('#chat-log').append("<div class=\"set\">" + a + "<br></div>")
+    // autoscroll
+    .scrollTop(function() { return this.scrollHeight; });
 
 };
+$('#chat-log').scrollTop(function() { return this.scrollHeight; }); // autoscroll
 
 // onclose - An event listener to be called when the connection is closed.
 chatSocket.onclose = function(e) {
