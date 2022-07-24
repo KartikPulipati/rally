@@ -19,11 +19,27 @@
                             <h6 class="card-subtitle mb-2 text-muted">{{petition.signature_set.count}} signature{% if petition.signature_set.count != 1 %}s{% endif %}</h6>
                             <p class="card-text">{{ petition.description }}</p>
                             <span class="card-link">Created by {{ petition.created_by }}</span>
-                            <button class="btn btn-primary">Sign</button>
+                            {% if not petition in signed_petitions %}
+                                <button class="btn btn-primary sign-button" data-petition-id={{ petition.id }}>Sign</button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
     </div>
+    <script>
+        $('.sign-button').click(function(){
+            var petition_id = $(this).attr("data-petition-id");
+            var data = {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                'petition_id': petition_id
+            };
+            $.ajax({
+                type: 'POST',
+                url: "/petition/sign",
+                data: data,
+            });
+        });
+    </script>
 {% endblock %}

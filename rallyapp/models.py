@@ -16,4 +16,4 @@ class Signature(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.petition.name} - {self.member.last_name}'
+        return f'{self.petition.name} - {self.member.first_name}'

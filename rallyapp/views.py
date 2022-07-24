@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.views import View
@@ -8,12 +9,12 @@ from .forms import PetitionForm
 def home(request):
     return render(request, "rallyapp/home.html")
 
-
 class PetitionView(View):
 
     def get(self, request):
         petitions = Petition.objects.all()
-        return render(request, "rallyapp/petitions.html", {"petitions": petitions})
+        signed_petitions = petitions.select_related('created_by').filter(signature__member=request.user)
+        return render(request, "rallyapp/petitions.html", {"petitions": petitions, "signed_petitions": signed_petitions})
 
     def post(self, request):
         pass
@@ -29,9 +30,12 @@ class PetitionCreateView(FormView):
         return super().form_valid(form)
 
 
-def sign(request, pk):
+def sign_petition(request):
+    pk = request.POST["petition_id"]
+    breakpoint()
     if not Signature.objects.filter(member=request.user, petition=Petition.objects.get(pk=pk)).exists():
-        return render(request, "rallyapp/sign.html")
+        Signature.objects.create(member=request.user, petition=Petition.objects.get(pk=pk))
+    return HttpResponse(status=204)
 
 def view_petition(request, pk):
     petition = Petition.objects.get(pk=pk)
