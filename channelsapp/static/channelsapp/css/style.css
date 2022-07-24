@@ -1,3 +1,15 @@
 .chat-box{
-    outline: 5px solid black;
+    color: white;
+    background: #16161D;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 100px -30px black;
+}
+
+.author{
+    font-size: 3rem;
+    font-weight: bold;
+}
+.time{
+    font-size
 }
