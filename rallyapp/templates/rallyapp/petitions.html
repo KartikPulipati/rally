@@ -16,7 +16,7 @@
                     <div class="card img-thumbnail" style="width: 18rem;">
                         <div class="card-body">
                             <a href="{% url 'view_petition' petition.id %}"><h5 class="card-title"><b>{{petition.name}}</b></h5></a>
-                            <h6 class="card-subtitle mb-2 text-muted">{{petition.signature_set.count}} signature{% if petition.signature_set.count != 1 %}s{% endif %}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted"><span class="petition-vote-count">{{petition.signature_set.count}}</span> signature{% if petition.signature_set.count != 1 %}s{% endif %}</h6>
                             <p class="card-text">{{ petition.description }}</p>
                             <span class="card-link">Created by {{ petition.created_by }}</span>
                             {% if not petition in signed_petitions %}
@@ -30,6 +30,7 @@
     </div>
     <script>
         $('.sign-button').click(function(){
+            const that = this;
             var petition_id = $(this).attr("data-petition-id");
             var data = {
                 csrfmiddlewaretoken: '{{ csrf_token }}',
@@ -39,6 +40,10 @@
                 type: 'POST',
                 url: "/petition/sign",
                 data: data,
+                success: function() {
+                    $(that).siblings("h6").find(".petition-vote-count").text(parseInt($(that).siblings("h6").find(".petition-vote-count").text()) + 1);
+                    $(that).remove();
+                }
             });
         });
     </script>
