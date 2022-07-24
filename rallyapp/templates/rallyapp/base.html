@@ -21,6 +21,7 @@
          {% endblock %}
     </head>
     <body>
+      {% block nav %}
     <nav class="rounded navbar navbar-expand-lg" style="background: #FF416C; background: -webkit-linear-gradient(to right, #00B7D8, #00D4B0); background: linear-gradient(to right, #00B7D8, #00D4B0);position:fixed;margin:10px;width:98.5%" >
   <div class="container-fluid">
     <a class="navbar-brand" style="font-family: 'Edu TAS Beginner', cursive;" ref="{% url 'home' %}">Rally</a>
@@ -56,6 +57,7 @@
     <br>
     <br>
     <br>
+    {% endblock %}
     {% block content %}
         
     {% endblock content %}
