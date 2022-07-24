@@ -39,7 +39,7 @@
       </ul>
 
         <ul class="me-5">
-            <a class="btn btn-outline-dark" style="color:white;margin-right:10px; margin-top: 10px; font-size:1.2rem;" href="{% url 'login' %}">Logout from <span id="username">{{ user.first_name }}</span></a>
+            <a class="btn btn-outline-dark" style="color:white;margin-right:10px; margin-top: 10px; font-size:1.2rem;" href="{% url 'logout' %}">Logout from <span id="username">{{ user.first_name }}</span></a>
         {% else %}
           <a class="btn btn-outline-dark" style="color:white;margin-right:10px; margin-top: 10px; font-size:1.2rem;" href="{% url 'signUp' %}">Sign Up</a>
           <a class="btn btn-outline-dark" style="color:white;margin-top: 10px;font-size:1.2rem;" href="{% url 'login' %}">Login</a>
