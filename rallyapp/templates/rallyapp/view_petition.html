@@ -1,7 +1,7 @@
 {% extends "rallyapp/base.html" %}
 {% block nav %}{% endblock %}
 {% block content %}
-    <h1>Petition for {{ petition.name }}:</h1>
+    <a href="{% url 'petition' %}"><h1>Petition for {{ petition.name }}:</h1></a>
     {{ petition.description }}
     <hr>
     <br>
