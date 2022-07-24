@@ -41,7 +41,7 @@ def signUp(request):
             user.save()
             login(request, user)
             return redirect('home')
-    return render(request, "authUser/login.html", {'form': form})
+    return render(request, "authUser/signUp.html", {'form': form})
 
 def loginUser(request):
     if request.method == 'POST':
