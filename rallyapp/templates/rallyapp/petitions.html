@@ -20,7 +20,7 @@
                             <h6 class="card-subtitle mb-2 text-muted"><span class="petition-vote-count">{{petition.signature_set.count}}</span> signature{% if petition.signature_set.count != 1 %}s{% endif %}</h6>
                             <p class="card-text">{{ petition.description | truncatechars:34 }}</p>
                             <span class="card-link">Created by {{ petition.created_by }}</span>
-                            {% if not petition in signed_petitions and not petition in my_petitions %}
+                            {% if not petition in signed_petitions %}
                                 <button class="btn btn-primary sign-button" data-petition-id={{ petition.id }}>Sign</button>
                             {% endif %}
                         </div>
