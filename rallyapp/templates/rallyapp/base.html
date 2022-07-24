@@ -28,6 +28,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
+        {% if request.user.is_authenticated %}
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" href="{% url 'channel' request.user.channel.id %}">Chat</a>
@@ -36,9 +37,10 @@
           <a class="nav-link" href="{% url 'petition' %}">Petition</a>
         </li>
       </ul>
-        {% if not request.user.is_authenticated %}
-        <ul class="me-5">
 
+        <ul class="me-5">
+            <a class="btn btn-outline-dark" style="color:white;margin-top: 10px; font-size:1.2rem;" href="{% url 'logout' %}">Logout</a>
+        {% else %}
           <a class="btn btn-outline-dark" style="color:white;margin-right:10px; margin-top: 10px; font-size:1.2rem;" href="{% url 'signUp' %}">Sign Up</a>
           <a class="btn btn-outline-dark" style="color:white;margin-top: 10px;font-size:1.2rem;" href="{% url 'login' %}">Login</a>
 
