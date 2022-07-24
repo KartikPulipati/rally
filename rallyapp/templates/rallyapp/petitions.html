@@ -21,7 +21,7 @@
                             <p class="card-text">{{ petition.description | truncatechars:34 }}</p>
                             <span class="card-link">Created by {{ petition.created_by }}</span>
                             {% if not petition in signed_petitions %}
-                                <button class="btn btn-primary sign-button" data-petition-id={{ petition.id }}>Sign</button>
+                                <div><button class="btn btn-primary sign-button" data-petition-id={{ petition.id }}>Sign</button></div>
                             {% endif %}
                         </div>
                     </div>
