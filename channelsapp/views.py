@@ -17,7 +17,7 @@ class ChannelView(View, LoginRequiredMixin):
         messages = channel.message_set.all()
         show_poll_pks = [int(i) for i in request.user.uservote_set.all().values_list('poll', flat=True)]
         return render(request, "channelsapp/channels.html",
-                      {"room_name": room_name, "messages": messages, "polls": channel.poll_set.all(),
+                      {"room_name": room_name, 'channel': channel, "messages": messages, "polls": channel.poll_set.all(),
                        "show_poll_pks": show_poll_pks})
 
 

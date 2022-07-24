@@ -31,7 +31,7 @@ def signUp(request):
             except:
                 channel = Channel(name="dummy", location=geo_info["zip"])
                 channel.save()
-                channel.name = f"Channel #{channel.pk}"
+                channel.name = f"Channel Zip Code - {geo_info['zip']}"
                 channel.save()
             if channel.member_set.count() < 3:
                 user.is_mod = True
